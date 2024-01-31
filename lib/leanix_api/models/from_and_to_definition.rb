@@ -140,7 +140,7 @@ module LeanixApi
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      multiplicity_validator = EnumAttributeValidator.new('String', ["SINGLE", "MULTI"])
+      multiplicity_validator = EnumAttributeValidator.new('String', ["SINGLE", "MULTI", "*", "1"])
       return false unless multiplicity_validator.valid?(@multiplicity)
       true
     end
@@ -148,7 +148,7 @@ module LeanixApi
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] multiplicity Object to be assigned
     def multiplicity=(multiplicity)
-      validator = EnumAttributeValidator.new('String', ["SINGLE", "MULTI"])
+      validator = EnumAttributeValidator.new('String', ["SINGLE", "MULTI", "*", "1"])
       unless validator.valid?(multiplicity)
         fail ArgumentError, "invalid value for \"multiplicity\", must be one of #{validator.allowable_values}."
       end
